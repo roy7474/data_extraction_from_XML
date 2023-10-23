@@ -88,3 +88,8 @@ import re
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
+
+url = input('Enter the url: ')
+html = urllib.request.urlopen(url, context=ctx).read()
+soup = BeautifulSoup(html, "html.parser")
+num_lst =[]
