@@ -90,9 +90,8 @@ import xml.etree.ElementTree as ET
 #ctx.check_hostname = False
 #ctx.verify_mode = ssl.CERT_NONE
 
-url = 'http://py4e-data.dr-chuck.net/comments_42.xml' #input('Enter the url: ')
+url = input('Enter the url of the website that you would like to extract the sum of counts for: ')
 XML = urllib.request.urlopen(url).read()#, context=ctx).read()
-# soup = BeautifulSoup(XML, "lxml", features="xml")
 
 # parsing the xml
 tree = ET.fromstring(XML)
@@ -105,3 +104,4 @@ total = 0
 for num in counts:
     total += int(num.text)
 
+print('The sum of the numbers in the tag is:',total)
