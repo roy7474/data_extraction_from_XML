@@ -81,15 +81,27 @@ Sample Execution
 
 '''
 import urllib.request, urllib.parse, urllib.error
-from bs4 import BeautifulSoup
-import ssl
-import re
-#ignore url error
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
+#from bs4 import BeautifulSoup
+#import ssl
+import xml.etree.ElementTree as ET
 
-url = input('Enter the url: ')
-html = urllib.request.urlopen(url, context=ctx).read()
-soup = BeautifulSoup(html, "html.parser")
-num_lst =[]
+# Ignore SSL certificate errors
+#ctx = ssl.create_default_context()
+#ctx.check_hostname = False
+#ctx.verify_mode = ssl.CERT_NONE
+
+url = 'http://py4e-data.dr-chuck.net/comments_42.xml' #input('Enter the url: ')
+XML = urllib.request.urlopen(url).read()#, context=ctx).read()
+# soup = BeautifulSoup(XML, "lxml", features="xml")
+
+# parsing the xml
+tree = ET.fromstring(XML)
+
+# find all 'count' tags
+counts = tree.findall('.//count')
+
+# loop through the tags, extract the text between the tags and convert them to integer
+total = 0
+for num in counts:
+    total += int(num.text)
+
